@@ -16,6 +16,16 @@
           <th>Content</th>
           <td><textarea name="content"></textarea></td>
         </tr>
+
+        {{-- display error --}}
+        @if($errors->any())
+          @foreach($errors->all() as $error)
+          <tr>
+            <li>{{ $error }}</li>
+          </tr>
+          @endforeach
+        @endif
+      
         <tr>
           <input type="submit" value="Create">
         </tr>
