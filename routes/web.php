@@ -40,11 +40,14 @@ Route::get('/posts/{id}', function ($id) {
             'content' => 'content4'
         ],
         5 => [
-            'title' => 'title4',
-            'content' => 'content4'
+            'title' => 'title5',
+            'content' => 'content5'
         ]
     ];
     // return 'Post ' . $id;
+
+    abort_if(!isset($posts[$id]), 404);
+
     return view ('posts.show', ['post' => $posts[$id]]);
 })->name('posts.show');
 
