@@ -10,11 +10,11 @@
       <tbody>
         <tr>
           <th>Title</th>
-          <td><input type="text" name="title"></td>
+          <td><input type="text" name="title" value="{{ old('title')}}"></td>
         </tr>
         <tr>
           <th>Content</th>
-          <td><textarea name="content"></textarea></td>
+          <td><textarea name="content">{{ old('content' )}}</textarea></td>
         </tr>
 
         {{-- display error --}}
