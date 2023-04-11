@@ -3,31 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Post;
 class PostsController extends Controller
 {
-    private $posts = [
-        1 => [
-            'title' => 'title1',
-            'content' => 'content1'
-        ],
-        2 => [
-            'title' => 'title2',
-            'content' => 'content2'
-        ],
-        3 => [
-            'title' => 'title3',
-            'content' => 'content3'
-        ],
-        4 => [
-            'title' => 'title4',
-            'content' => 'content4'
-        ],
-        5 => [
-            'title' => 'title5',
-            'content' => 'content5'
-        ]
-    ];
+    // private $posts = [
+    //     1 => [
+    //         'title' => 'title1',
+    //         'content' => 'content1'
+    //     ],
+    //     2 => [
+    //         'title' => 'title2',
+    //         'content' => 'content2'
+    //     ],
+    //     3 => [
+    //         'title' => 'title3',
+    //         'content' => 'content3'
+    //     ],
+    //     4 => [
+    //         'title' => 'title4',
+    //         'content' => 'content4'
+    //     ],
+    //     5 => [
+    //         'title' => 'title5',
+    //         'content' => 'content5'
+    //     ]
+    // ];
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +35,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => $this->posts]);
+        // return view('posts.index', ['posts' => $this->posts]);
+        return view('posts.index', ['posts' => Post::all()]);
+        // return view('posts.index', ['posts' => Post::orderBy('created_at', 'desc') -> take(5) -> get()]);
     }
 
     /**
@@ -45,7 +47,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -56,7 +58,12 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post -> title = $request -> input('title');
+        $post -> content = $request -> input('content');
+        $post -> save();
+
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -67,8 +74,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        abort_if(!isset($this ->posts[$id]), 404);
-        return view ('posts.show', ['post' => $this -> posts[$id]]);
+        // abort_if(!isset($this ->posts[$id]), 404);
+        // return view ('posts.show', ['post' => $this -> posts[$id]]);
+        return view('posts.show', ['post' => Post::findOrFail($id)]);
     }
 
     /**
