@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\HomeController;            //them vao
+use App\Http\Controllers\PostsController;            //them vao
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,14 +52,16 @@ $posts = [
         'content' => 'content5'
     ]
 ];
-Route::get('/posts', function() use ($posts) {
-    return view('posts.index', ['posts' => $posts]);
-});
+Route::resource('posts', 'PostsController');
 
-Route::get('/posts/{id}', function ($id) use ($posts) {
-    abort_if(!isset($posts[$id]), 404);
-    return view ('posts.show', ['post' => $posts[$id]]);
-})->name('posts.show');
+// Route::get('/posts', function() use ($posts) {
+//     return view('posts.index', ['posts' => $posts]);
+// });
+
+// Route::get('/posts/{id}', function ($id) use ($posts) {
+//     abort_if(!isset($posts[$id]), 404);
+//     return view ('posts.show', ['post' => $posts[$id]]);
+// })->name('posts.show');
 
 Route::get('/recent-posts/{days_ago?}', function($days_ago = 20) {
     return 'Posts for ' . $days_ago . ' days ago';
