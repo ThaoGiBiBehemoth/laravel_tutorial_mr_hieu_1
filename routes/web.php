@@ -13,12 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
-})->name('home.welcome');
+})->name('welcome');
+
+Route::get('/', function () {
+    return view('home.index');
+})->name('home.index');
 
 Route::get('/posts/{id}', function ($id) {
-    return 'Post ' . $id;
+    $posts = [
+        1 => [
+            'title' => 'title1',
+            'content' => 'content1'
+        ],
+        2 => [
+            'title' => 'title2',
+            'content' => 'content2'
+        ],
+        3 => [
+            'title' => 'title3',
+            'content' => 'content3'
+        ],
+        4 => [
+            'title' => 'title4',
+            'content' => 'content4'
+        ],
+        5 => [
+            'title' => 'title4',
+            'content' => 'content4'
+        ]
+    ];
+    // return 'Post ' . $id;
+    return view ('posts.show', ['post' => $posts[$id]]);
 })->name('posts.show');
 
 Route::get('/recent-posts/{days_ago?}', function($days_ago = 20) {
