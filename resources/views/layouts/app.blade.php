@@ -9,7 +9,7 @@
 <body>
   <div>
     @if(session('status'))
-      <div style="background: red; color:white">
+      <div style="background: green; color:white">
         {{ session('status' )}}
       </div>
     @endif
