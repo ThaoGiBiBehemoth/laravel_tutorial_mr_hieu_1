@@ -11,7 +11,7 @@
 <body>
   <div>
     @if(session('status'))
-      <div style="background: green; color:white">
+      <div style="background: green; color: white">
         {{ session('status' )}}
       </div>
     @endif
